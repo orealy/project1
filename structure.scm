@@ -3,7 +3,7 @@
 ; Based on SET designed by Raj, and TCAD model supplied by Fahd.
 
 ; Begin journalling
-(journal:on "structure.jrl")
+(journal:on "devise.jrl")
 
 ; Reset DEVISE
 (ise:clear)
@@ -313,8 +313,8 @@
     (isedr:define-refinement-placement "intersect1Place" "intersect1Ref" "intersect1Window" )
 
 ; Save model
-(ise:save-model "SD")
+(ise:save-model "quad")
 
 ; End journaling
-(journal:save "structure.jrl")
+(journal:save "devise.jrl")
 (journal:off)
