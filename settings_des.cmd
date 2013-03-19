@@ -1,13 +1,18 @@
+* DESSIS command file.
+
 File {
-	Grid	= "SD_msh"
-	Doping	= "SD_msh"
-	Plot	= "SD"
-	Current	= "SD"
-	Output	= "SD"
+    * Grid and doping file from mesh generator.
+	Grid	= "quad_msh" # -> quad_msh.grd
+	Doping	= "quad_msh" # -> quad_msh.dat
+
+    * Where to output certain results. Conforms with
+    * DESSIS manual file naming conventions.
+	Plot	= "quad" # -> quad_des.plt
+	Current	= "quad" # -> quad_des.dat
+	Output	= "quad" # -> quad_des.log
+
+    * Specify material parameter file.
 	Parameter = "mosQD4.7.par"
-	#GridCompressed --->Don't try and compress, because it uses a
-	#PlotCompressed --->stupid program that fails and deletes all
-	#Compressed ---> your data!!!!
 }
 
 Electrode {
@@ -18,7 +23,7 @@ Electrode {
 	{ Name="leadGateRight1"	Voltage=2.5 Material="Aluminum"}
 	{ Name="source1" Voltage=0 Material="Aluminum"}
 	{ Name="drain1" Voltage=0 Material="Aluminum"}
-	
+
 	{ Name="topGate2"	Voltage=1.1 Material="Aluminum"}
 	{ Name="barrierLeft2"	Voltage=0.7 Material="Aluminum"}
 	{ Name="barrierRight2"	Voltage=0.7 Material="Aluminum"}
@@ -31,7 +36,7 @@ Electrode {
 Physics {
 	Temperature=20
 	Fermi
-	Mobility( 
+	Mobility(
 		DopingDep
 		eHighFieldsat(
 			GradQuasiFermi)
@@ -101,18 +106,17 @@ Math {
 
 Solve {
 	Poisson
-#        Coupled { Poisson Electron Hole} 
+#        Coupled { Poisson Electron Hole}
 #	Save(FilePrefix="1top0.50V")
-	
+
 #	Quasistationary(
 #                InitialStep=0.02
 #                MinStep=0.0008
 #                MaxStep=0.02
 #                Goal { Name = "topGate1" Voltage = 1 }
 #                )
-#                { Poisson 
+#                { Poisson
 #                Plot( FilePrefix = "1top0.50+0.01V" Time=(range=(0 1) intervals=50) NoOverWrite ) }
 
 #	Save(FilePrefix="1top0.50+0.01V")
-
 }
