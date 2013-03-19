@@ -1,8 +1,14 @@
 ; Structure for modified SET/field gradient structure.
 ; C Webb z3288829
 ; Based on SET designed by Raj, and TCAD model supplied by Fahd.
-;
-;Define parameters
+
+; Begin journalling
+(journal:on "structure.jrl")
+
+; Reset DEVISE
+(ise:clear)
+
+; Define parameters
     (define dotLength 0.04)
     (define dotdistance 0.2)
 
@@ -96,13 +102,13 @@
     (isegeo:set-default-boolean "BAB")
     (isegeo:translate-selected barrierOxideID selfBoolean #f 1)
 
-;Create LeadGate aluminum
+; Create LeadGate aluminum
     (isegeo:set-default-boolean "BAB")
     (define leadGateAluminumID (isegeo:create-cuboid (position leadGate1X1 (+ leadGate1Y1 leadGateOxideThickness) topGateOxideThickness)(position (- leadGate1X2 leadGateOxideThickness) (- leadGate1Y2 leadGateOxideThickness) (- leadGateHeight leadGateOxideThickness)) "Aluminum" "leadGateAluminum"))
     (isegeo:set-default-boolean "AB")
     (define leadGateAluminumID (isegeo:create-cuboid (position (+ (- leadGate1X2 leadGateOverlap) leadGateOxideThickness) (+ leadGate1Y1 leadGateOxideThickness) (- leadGateHeight leadGateOxideThickness)) (position (- leadGate1X2 leadGateOxideThickness) (- leadGate1Y2 leadGateOxideThickness) (- (+ leadGateHeight barrierHeight) leadGateOxideThickness)) "Aluminum" "leadGateAluminum"))
 
-;Create LeadGate oxide
+; Create LeadGate oxide
     (isegeo:set-default-boolean "XX")
     (define leadGateOxideID (isegeo:create-cuboid (position leadGate1X1 leadGate1Y1 0)(position leadGate1X2 leadGate1Y2 leadGateHeight) "Insulator1" "leadOxide"))
     (define leadGateOxideID2  (isegeo:create-cuboid (position (- leadGate1X2 leadGateOverlap)  leadGate1Y1 leadGateHeight) (position leadGate1X2 leadGate1Y2 (+ leadGateHeight barrierHeight)) "Insulator1" "leadOxide"))
@@ -112,23 +118,23 @@
     (isegeo:set-default-boolean "BAB")
     (isegeo:translate-selected leadGateOxideID selfBoolean #f 1)
 
-;Create TopGate oxide
+; Create TopGate oxide
     (isegeo:set-default-boolean "BAB")
     (define topGateAluminumID (isegeo:create-cuboid (position topGate1X1 topGate1Y1 0) (position topGate1X2 topGate1Y2 topGateOxideThickness) "Insulator1" "gateOxide"))
 
-;Create TopGate aluminum
+; Create TopGate aluminum
     (isegeo:set-default-boolean "BAB")
     (define topGateAluminumID (isegeo:create-cuboid (position topGate1X1 topGate1Y1 0) (position topGate1X2 topGate1Y2 (+ topGateHeight leadGateHeight)) "Aluminum" "topGateAluminum"))
 
     (define topGateBend (transform:rotation (position topGate1X1 topGate1Y2 0) (gvector 0 0 1) topGateBendAngle))
 
-;Create TopGate oxide
+; Create TopGate oxide
     (isegeo:set-default-boolean "XX")
     (define topGateOxideBendID (isegeo:create-cuboid (position topGate1X1 topGate1Y1 0)(position (- topGate1X1 topGateBendExtend) topGate1Y2  topGateOxideThickness) "Insulator1" "bendOxide"))
     (isegeo:set-default-boolean "BAB")
     (isegeo:rotate-selected topGateOxideBendID topGateBend #f 1)
 
-;Create TopGate aluminum
+; Create TopGate aluminum
     (isegeo:set-default-boolean "XX")
     (define topGateAluminumBendID (isegeo:create-cuboid (position topGate1X1 topGate1Y1 0) (position (- topGate1X1 topGateBendExtend) topGate1Y2 topGateHeight) "Aluminum" "topGateAluminum"))
     (define topGateAluminumBend2ID (isegeo:create-cuboid (position topGate1X1 topGate1Y1 0) (position (- topGate1X1 topGateBendCover) topGate1Y2 (+ topGateHeight leadGateHeight)) "Aluminum" "topGateAluminum"))
@@ -138,11 +144,11 @@
 
     (isegeo:bool-unite (list topGateAluminumID topGateAluminumBendID))
 
-;Mirroing
+; Mirroing
     (define mirror (transform:reflection (position 0 0 0) (gvector -1 0 0)))
     (isegeo:mirror-selected (part:entities (filter:type "solid?")) mirror #t)
 
-;Merging
+; Merging
     (isegeo:set-default-boolean "BAB")
     (define topGateOxideID (isegeo:create-cuboid (position (- (/ dotLength 2)) topGate1Y1 0)(position (/ dotLength 2) topGate1Y2 topGateOxideThickness) "Insulator1" "gateOxide"))
     (define topGateAluminumID (isegeo:create-cuboid (position (- (/ dotLength 2)) topGate1Y1 0)(position (/ dotLength 2) topGate1Y2 topGateHeight) "Aluminum" "topGateAluminum"))
@@ -150,13 +156,13 @@
     (isegeo:bool-unite (list topGateOxideID (car(find-body-id (position (- 0.0001 (/ dotLength 2)) centrePositionY 0.0001))) (car(find-body-id (position (- (/ dotLength 2) 0.0001) centrePositionY 0.0001)))))
     (isegeo:bool-unite (list topGateAluminumID (car(find-body-id (position (- 0.0001 (/ dotLength 2)) centrePositionY topGateHeight))) (car(find-body-id (position (- (/ dotLength 2) 0.0001) centrePositionY topGateHeight)))))
 
-;(isegeo:bool-unite (find-region-id "gateOxide"))
+; (isegeo:bool-unite (find-region-id "gateOxide"))
 
-;Mirror again to create sensor
+; Mirror again to create sensor
     (define mirror (transform:reflection (position 0 0 0) (gvector 0 -1 0)))
     (isegeo:mirror-selected (part:entities (filter:type "solid?")) mirror #t)
 
-;Define more parameters
+; Define more parameters
     (define domainWidth 2)
     (define domainLength 1.5)
     (define substrateHeight 0.5)
@@ -203,19 +209,19 @@
     (define drainContact2X2 drainContact1X2)
     (define drainContact2Y2 (- drainContact1Y2))
 
-;Create Substrate
+; Create Substrate
     (isegeo:set-default-boolean "ABA")
     (define substateID (isegeo:create-cuboid (position domainX1 domainY1 (- siliconOxideThickness))
                                              (position domainX2 domainY2 (- substrateHeight))
                                              "Silicon" "substate"))
 
-;Create OxideLayer
+; Create OxideLayer
     (isegeo:set-default-boolean "ABA")
     (define oxideLayerID (isegeo:create-cuboid (position oxideLayerX1 oxideLayerY1 0)
                                                (position oxideLayerX2 oxideLayerY2 (- siliconOxideThickness))
                                                "SiO2" "oxideLayer"))
 
-;Define contact sets
+; Define contact sets
     (isegeo:define-contact-set "topGate1" 4.000000  (color:rgb 1.000000 0.000000 0.000000 ) "//" )
     (isegeo:define-contact-set "barrierLeft1" 4.000000  (color:rgb 1.000000 0.000000 1.000000 ) "##" )
     (isegeo:define-contact-set "barrierRight1" 4.000000  (color:rgb 1.000000 0.000000 1.000000 ) "##" )
@@ -238,7 +244,7 @@
     (isegeo:define-3d-contact (entity:faces (car(find-body-id (position -0.5 (- centrePositionY) (/ barrierHeight 2))))) "leadGateLeft2")
     (isegeo:define-3d-contact (entity:faces (car(find-body-id (position 0.5 (- centrePositionY) (/ barrierHeight 2))))) "leadGateRight2")
 
-;Define Source Drain
+; Define Source Drain
     (isegeo:imprint-rectangular-wire (position sourceContact1X1 sourceContact1Y1 (- siliconOxideThickness)) (position sourceContact1X2 sourceContact1Y2 (- siliconOxideThickness)))
     (define sourceID (find-face-id (position (+ sourceContact1X1 0.0001) (+ sourceContact1Y1 0.0001) (- siliconOxideThickness))))
     (isegeo:define-3d-contact sourceID "source1")
@@ -250,7 +256,7 @@
     (isedr:define-refinement-window "sourceRegion1" "Cuboid" (position sourceContact1X1 sourceContact1Y1 (- siliconOxideThickness)) (position sourceContact1X2 sourceContact1Y2 (- -0.01 siliconOxideThickness)))
     (isedr:define-refinement-window "drainRegion1" "Cuboid" (position drainContact1X1 drainContact1Y1 (- siliconOxideThickness)) (position drainContact1X2 drainContact1Y2 (- -0.01 siliconOxideThickness)))
 
-    ;(isedr:define-refinement-window "dopeDumpRegion" "Cuboid" (position domainX1 domainY1 (- substrateHeight)) (position (+ domainX1 0.001) (+ domainY1 0.001) (- 0.001 substrateHeight)))
+    ; (isedr:define-refinement-window "dopeDumpRegion" "Cuboid" (position domainX1 domainY1 (- substrateHeight)) (position (+ domainX1 0.001) (+ domainY1 0.001) (- 0.001 substrateHeight)))
 
     (isegeo:imprint-rectangular-wire (position sourceContact2X1 sourceContact2Y1 (- siliconOxideThickness)) (position sourceContact2X2 sourceContact2Y2 (- siliconOxideThickness)))
     (define sourceID (find-face-id (position (+ sourceContact2X1 0.0001) (- sourceContact2Y1 0.0001) (- siliconOxideThickness))))
@@ -268,43 +274,47 @@
     (isedr:define-constant-profile-placement "drainDoping" "ohmic" "drainRegion1")
     (isedr:define-constant-profile-placement "sourceDoping" "ohmic" "sourceRegion2")
     (isedr:define-constant-profile-placement "drainDoping" "ohmic" "drainRegion2")
-    ;(isedr:define-constant-profile-placement "DumpDoping" "ohmic" "dopeDumpRegion")
+    ; (isedr:define-constant-profile-placement "DumpDoping" "ohmic" "dopeDumpRegion")
 
-;Define refinement windows
+; Define refinement windows
     (isedr:define-refinement-size "generalRef" 0.1 0.1 0.1 0.02 0.02 0.02)
-    ;(isedr:define-refinement-function "generalRef" "DopingConcentration" "MaxTransDiff" 1)
+    ; (isedr:define-refinement-function "generalRef" "DopingConcentration" "MaxTransDiff" 1)
     (isedr:define-refinement-material "substratePlace" "generalRef" "Silicon")
 
-    ;(isedr:define-refinement-size "electrodesRef" 0.02 0.02 0.02 0.01 0.01 0.01 )
-    ;(isedr:define-refinement-material "electrodesPlace" "electrodesRef" "Aluminum" )
+    ; (isedr:define-refinement-size "electrodesRef" 0.02 0.02 0.02 0.01 0.01 0.01 )
+    ; (isedr:define-refinement-material "electrodesPlace" "electrodesRef" "Aluminum" )
 
-    ;(isedr:define-refinement-size "oxideRef" 0.05 0.05 0.005 0.05 0.05 0.002)
-    ;(isedr:define-refinement-material "oxidePlace" "oxideRef" "SiO2" )
+    ; (isedr:define-refinement-size "oxideRef" 0.05 0.05 0.005 0.05 0.05 0.002)
+    ; (isedr:define-refinement-material "oxidePlace" "oxideRef" "SiO2" )
 
-    ;(isedr:define-refinement-size "aluminumOxideRef" 0.05 0.05 0.002 0.02 0.02 0.001)
-    ;(isedr:define-refinement-size "aluminumOxideRef" 0.05 0.05 0.005 0.02 0.02 0.002)
-    ;(isedr:define-refinement-material "aluminumOxidePlace" "aluminumOxideRef" "Insulator1" )
+    ; (isedr:define-refinement-size "aluminumOxideRef" 0.05 0.05 0.002 0.02 0.02 0.001)
+    ; (isedr:define-refinement-size "aluminumOxideRef" 0.05 0.05 0.005 0.02 0.02 0.002)
+    ; (isedr:define-refinement-material "aluminumOxidePlace" "aluminumOxideRef" "Insulator1" )
 
-;2Deg window
+; 2Deg window
     (define 2DegExtra 0.02)
     (isedr:define-refinement-size "2DegRef" 0.05 0.05 0.01 0.005 0.005 0.001 )
-    ;(isedr:define-refinement-size "2DegRef" 0.005 0.005 0.002 0.002 0.002 0.001)
+    ; (isedr:define-refinement-size "2DegRef" 0.005 0.005 0.002 0.002 0.002 0.001)
     (isedr:define-refinement-window "2DegWindow" "Cuboid" (position (- leadGate1X1 2DegExtra) (- leadGate1Y1 2DegExtra) -0.03) (position (- 2DegExtra leadGate1X1) (- 2DegExtra leadGate1Y1) 0))
     (isedr:define-refinement-placement "2DegPlace" "2DegRef" "2DegWindow")
 
-;Source Drain window
-    ;(isedr:define-refinement-size "SDRef" 0.05 0.02 0.01 0.01 0.01 0.005 )
-    ;(isedr:define-refinement-placement "sourcePlace" "SDRef" "sourceRegion")
-    ;(isedr:define-refinement-placement "drainPlace" "SDRef" "drainRegion")
+; Source Drain window
+    ; (isedr:define-refinement-size "SDRef" 0.05 0.02 0.01 0.01 0.01 0.005 )
+    ; (isedr:define-refinement-placement "sourcePlace" "SDRef" "sourceRegion")
+    ; (isedr:define-refinement-placement "drainPlace" "SDRef" "drainRegion")
 
 
-;Intersection window
+; Intersection window
     (define intesect1ExtraX 0.05)
     (define intesect1ExtraY 0.04)
     (isedr:define-refinement-size "intersect1Ref" 0.01 0.01 0.003 0.005 0.005 0.001)
-    ;(isedr:define-refinement-size "intersect1Ref" 0.005 0.005 0.002 0.002 0.002 0.001)
+    ; (isedr:define-refinement-size "intersect1Ref" 0.005 0.005 0.002 0.002 0.002 0.001)
     (isedr:define-refinement-window "intersect1Window" "Cuboid" (position (- barrier1X1 intesect1ExtraX) (- leadGate1Y1 intesect1ExtraY) -0.02) (position (- intesect1ExtraX barrier1X1) (- intesect1ExtraY leadGate1Y1) -0.0075))
     (isedr:define-refinement-placement "intersect1Place" "intersect1Ref" "intersect1Window" )
 
-;Save model
+; Save model
 (ise:save-model "SD")
+
+; End journaling
+(journal:save "structure.jrl")
+(journal:off)

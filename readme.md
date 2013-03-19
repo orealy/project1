@@ -3,33 +3,66 @@ README
 
 Files
 ------------
-1. mosQD4.7.par - Parameter file (supplied) for all relevant materials.
-2. structure.scm - This is the model file where the
-   structrue/doping/refinement(grid size)/contacts are defined.
-3. settings.scm - This is the file where the gate voltages/temperature/equations
-   to be solved/structure files.. are specified.
+1. mosQD4.7.par - parameter file (supplied) for all relevant materials.
+2. structure.scm - structrue/doping/refinement(grid size)/contacts are defined.
+3. settings.cmd - gate voltages/temperature/equations to be solved/structure
+   files.. are specified here for DESSIS(?)
 
 Notes on File Types
 -------------------
 
-* `scm`: Scheme script file. Used by Devise.
-* `cmd`: MESH command file.
-* `bnd`: DF-ISE boundary file.
+See 2.4.3 of the DEVISE manual for more information.
+
+DESSIS:
+* `scm` - Scheme script file. Used by Devise.
+* `cmd` - MESH command file. Doping and refinement file.
+* `bnd` - DF-ISE boundary representation.
+* `sat` - ASCII version of complete model.
+* `lyt` - DF-ISE layout file representation.
+* `lay` - PROSIT mask layout representation.
+* `grd` - DF-ISE mesh representation.
 
 To load a DF-ISE model, run `devise` on a MESH file and the boundary file. Note
-that DEVISE assumes they have the same basename.
+that DEVISE assumes they have the same basename, and will look for the other if
+only one is given.
+
+MESH:
+In general mesh files should have 'msh' somewhere in their name.
+* `grd`: output device geometry file
+* `dat`: output impurity concentration file
+
+DESSIS:
+In general mesh files should have 'des' somewhere in their name.
+* `grd`: input file from MESH
+* `dat`: input file from MESH
+* `_des.dat`: output data for TECPLOT
+* `_des.plt`: output for current, voltages, charges, and temperature
+* `_ac_des.plt`: output for small signal AC analysis
+* `_des.log`: general output. plain text compilation of all output.
+
+TECPLOT:
+* `grd` - input mixed-element grid from MESH
+* `dat` - input mixed-element data from DESSIS
+* `plt` - XY plots from desis from DESSIS
 
 TCAD Flow
 --------------
 Henry's thesis also describes the flow of TCAD. Fahd is the resisdent expert.
 
-1. View in Devise
+1. Create structure:
+    * Input:
+    * Output: grid file (.grd), doping file (.dat)
+2. View in Devise:
     Fill in.
-2. Create mesh file
+3. Create mesh file
     Fill in.
-3. Solve equations
-    Fill in.
-4. View results
+4. Solve equations:
+    * DESSIS
+    * Main input: command file (settings_des.cmd)
+    * Other inputs: grid (.grd), doping (.dat), parameter file (.par)
+    * Output: plot (.plt), data (.dat)
+
+5. View results
 
 Fahd's Description
 -------------------
@@ -44,15 +77,6 @@ SD_msh.dat
 Step 3 - Once this is done run "dessis SD201_pot.cmd". Note that the
 "SD_msh.grd", "SD_msh.dat" and mosQD4.7.par are also specified in the potential
 file(SD201_pot.cmd). All the required equations will be solved.
-
-Step 4 - To view the results, run "tecplot_ise SD_des.dat SD_msh.grd". All the
-necessary plots such as electron density, conduction band, etc... will be seen
-in a GUI.
-
-For the time being, make sure that you are comfortable with the flow, and then
-try to understand the commands specified in the model and potential files. The
-way to go about with the commands is : look up each command in the TCAD manuals
-I had given you. Reading the complete manual from scratch is quite impractical.
 
 Once, you reach this step, I will give you a .cpp file for extracting the TCAD
 data and using them in a program like MATLAB for further processing.
