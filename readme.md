@@ -25,7 +25,7 @@ settings_des.cmd):
 
 TCAD Flow
 --------------
-Henry's thesis also describes the flow of TCAD. Fahd is the resisdent expert.
+Henry''s thesis also describes the flow of TCAD. Fahd is the resisdent expert.
 
 1. Create structure as a DEVISE scheme script
     * (ise:save-model "NAME") determines output
@@ -43,7 +43,7 @@ Henry's thesis also describes the flow of TCAD. Fahd is the resisdent expert.
     * Other inputs: grid (.grd), doping (.dat), parameter file (.par)
     * Output: plot (.plt), data (.dat)
 5. View results
-    * TECPLOT
+    * `tecplot_ise NAME_des.dat NAME_msh.grd`
 
 Notes on File Types
 -------------------

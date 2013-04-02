@@ -3,7 +3,7 @@
 ; Based on SET designed by Raj, and TCAD model supplied by Fahd.
 
 ; Begin journalling
-(journal:on "devise.jrl")
+; (journal:on "devise.jrl")
 
 ; Reset DEVISE
 (ise:clear)
@@ -316,4 +316,9 @@
 (ise:save-model "quad")
 
 ; End journaling
+<<<<<<< HEAD
 (journal:off)
+=======
+; (journal:save "devise.jrl")
+; (journal:off)
+>>>>>>> 3feb2311b66a75115294db8f9f7d90a747f4dd2b
