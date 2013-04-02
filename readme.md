@@ -33,7 +33,7 @@ Henry's thesis also describes the flow of TCAD. Fahd is the resisdent expert.
     * `devise -l -e structure.scm`
     * Output: NAME.bnd, NAME.cmd, NAME.sat, NAME.scm, devise.jrl
 3. Create mesh file
-    * `mesh NAME`
+    * `mesh -P NAME`
     * Input: NAME.bnd, NAME.cmd
     * Output: grid file (NAME_msh.grd), doping file (NAME_msh.dat), log for grid
       generation (NAME_msh.log)
