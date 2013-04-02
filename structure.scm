@@ -316,5 +316,4 @@
 (ise:save-model "quad")
 
 ; End journaling
-(journal:save "devise.jrl")
 (journal:off)
