@@ -84,9 +84,7 @@
     (define barrierOxideTaperFace (list (car (find-face-id (position barrier1X1 centrePositionY 0.0001))) (car (find-face-id (position barrier1X2 centrePositionY 0.0001))) (car (find-face-id (position centrePositionX barrier1Y2 0.0001)))))
     (isegeo:taper-faces barrierOxideTaperFace (position centrePositionX centrePositionY barrierPosition) (gvector 0 0 1) barrierAngle)
 
-
     (isegeo:chamfer-edges barrierOxideChamferTop chamferTop chamferTop)
-
 
     (define barrierAluminumID (isegeo:create-cuboid (position (+ barrier1X1 barrierOxideThickness) barrier1Y1 barrierOxideThicknessBottom) (position (- barrier1X2 barrierOxideThickness)  (- barrier1Y2 barrierOxideThickness)  (- barrierHeight barrierOxideThickness)) "Aluminum" "barrierAluminum"))
 
@@ -278,18 +276,7 @@
 
 ; Define refinement windows
     (isedr:define-refinement-size "generalRef" 0.1 0.1 0.1 0.02 0.02 0.02)
-    ; (isedr:define-refinement-function "generalRef" "DopingConcentration" "MaxTransDiff" 1)
     (isedr:define-refinement-material "substratePlace" "generalRef" "Silicon")
-
-    ; (isedr:define-refinement-size "electrodesRef" 0.02 0.02 0.02 0.01 0.01 0.01 )
-    ; (isedr:define-refinement-material "electrodesPlace" "electrodesRef" "Aluminum" )
-
-    ; (isedr:define-refinement-size "oxideRef" 0.05 0.05 0.005 0.05 0.05 0.002)
-    ; (isedr:define-refinement-material "oxidePlace" "oxideRef" "SiO2" )
-
-    ; (isedr:define-refinement-size "aluminumOxideRef" 0.05 0.05 0.002 0.02 0.02 0.001)
-    ; (isedr:define-refinement-size "aluminumOxideRef" 0.05 0.05 0.005 0.02 0.02 0.002)
-    ; (isedr:define-refinement-material "aluminumOxidePlace" "aluminumOxideRef" "Insulator1" )
 
 ; 2Deg window
     (define 2DegExtra 0.02)
@@ -298,7 +285,7 @@
     (isedr:define-refinement-window "2DegWindow" "Cuboid" (position (- leadGate1X1 2DegExtra) (- leadGate1Y1 2DegExtra) -0.03) (position (- 2DegExtra leadGate1X1) (- 2DegExtra leadGate1Y1) 0))
     (isedr:define-refinement-placement "2DegPlace" "2DegRef" "2DegWindow")
 
-; Source Drain window
+; Source Drain window - not used.
     ; (isedr:define-refinement-size "SDRef" 0.05 0.02 0.01 0.01 0.01 0.005 )
     ; (isedr:define-refinement-placement "sourcePlace" "SDRef" "sourceRegion")
     ; (isedr:define-refinement-placement "drainPlace" "SDRef" "drainRegion")
