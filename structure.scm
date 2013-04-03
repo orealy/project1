@@ -111,7 +111,6 @@
 
   (isegeo:chamfer-edges
     barrierOxideChamferTop
-    chamferTop
     chamferTop)
 
   (define barrierAluminumID
@@ -189,12 +188,10 @@
 
   (isegeo:chamfer-edges
     barrierAluminumChamferTop
-    chamferTop
     chamferTop)
 
   (isegeo:chamfer-edges
     barrierAluminumChamferBottom
-    chamferBottom
     chamferBottom)
 
   (isegeo:set-default-boolean "BAB")
