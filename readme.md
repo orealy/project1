@@ -30,7 +30,7 @@ Henry''s thesis also describes the flow of TCAD. Fahd is the resisdent expert.
 1. Create structure as a DEVISE scheme script
     * (ise:save-model "NAME") determines output
 2. Generate boundary and mesh command file in DEVISE (and view if you want):
-    * `devise -l -e structure.scm`
+    * `devise -e -l structure.scm`
     * Output: NAME.bnd, NAME.cmd, NAME.sat, NAME.scm, devise.jrl
 3. Create mesh file
     * `mesh -P NAME`
