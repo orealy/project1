@@ -80,10 +80,11 @@
 
   ; defines barrierOxideID to refer to a barrierOxide
   (define barrierOxideID
-    (isegeo:create-cuboid (position barrier1X1 barrier1Y1 0)
-                          (position barrier1X2 barrier1Y2 barrierHeight)
-                          "Insulator1"
-                          "barrierOxide"))
+    (isegeo:create-cuboid
+      (position barrier1X1 barrier1Y1 0)
+      (position barrier1X2 barrier1Y2 barrierHeight)
+      "Insulator1"
+      "barrierOxide"))
 
   (define barrierOxideChamferTop
     (list
