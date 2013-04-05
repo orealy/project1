@@ -414,7 +414,8 @@
   (isegeo:define-contact-set "leadGateLeft1" 4.000000  (color:rgb 1.000000 1.000000 0.000000 ) "||" )
   (isegeo:define-contact-set "leadGateRight1" 4.000000  (color:rgb 1.000000 1.000000 0.000000 ) "||" )
   (isegeo:define-3d-contact
-    (entity:faces barrierAluminumID) "barrierLeft1")
+    (entity:faces barrierAluminumID)
+    "barrierLeft1")
   (isegeo:define-3d-contact
     (entity:faces
       (car( find-body-id( position (/ (+ barrierWidth dotLength) 2) centrePositionY (/ barrierHeight 2)))))
