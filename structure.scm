@@ -570,8 +570,8 @@
   (isedr:define-constant-profile "ohmic" "PhosphorusActiveConcentration" 1e16)
   (isedr:define-constant-profile-placement "sourceDoping" "ohmic" "sourceRegion1")
   (isedr:define-constant-profile-placement "drainDoping" "ohmic" "drainRegion1")
-  (isedr:define-constant-profile-placement "sourceDoping" "ohmic" "sourceRegion2")
-  (isedr:define-constant-profile-placement "drainDoping" "ohmic" "drainRegion2")
+  ; (isedr:define-constant-profile-placement "sourceDoping" "ohmic" "sourceRegion2")
+  ; (isedr:define-constant-profile-placement "drainDoping" "ohmic" "drainRegion2")
 
 ; Define refinement windows
   (isedr:define-refinement-size "generalRef" 0.1 0.1 0.1 0.02 0.02 0.02)
