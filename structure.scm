@@ -3,7 +3,7 @@
 ; Based on SET designed by Raj, and TCAD model supplied by Fahd.
 
 ; Begin journalling
-(journal:on "devise.jrl")
+; (journal:on "devise.jrl")
 
 ; Reset DEVISE
 (ise:clear)
@@ -510,22 +510,22 @@
       drainContact1Y2
       (- -0.01 siliconOxideThickness)))
 
-  (isegeo:imprint-rectangular-wire
-    (position
-      sourceContact2X1
-      sourceContact2Y1
-      (- siliconOxideThickness))
-    (position
-      sourceContact2X2
-      sourceContact2Y2
-      (- siliconOxideThickness)))
-  (define sourceID
-    (find-face-id
-      (position
-        (+ sourceContact2X1 0.0001)
-        (- sourceContact2Y1 0.0001)
-        (- siliconOxideThickness))))
-  (isegeo:define-3d-contact sourceID "source2")
+  ; (isegeo:imprint-rectangular-wire
+  ;   (position
+  ;     sourceContact2X1
+  ;     sourceContact2Y1
+  ;     (- siliconOxideThickness))
+  ;   (position
+  ;     sourceContact2X2
+  ;     sourceContact2Y2
+  ;     (- siliconOxideThickness)))
+  ; (define sourceID
+  ;   (find-face-id
+  ;     (position
+  ;       (+ sourceContact2X1 0.0001)
+  ;       (- sourceContact2Y1 0.0001)
+  ;       (- siliconOxideThickness))))
+  ; (isegeo:define-3d-contact sourceID "source2")
 
   ; (isegeo:imprint-rectangular-wire
   ;   (position
@@ -617,4 +617,4 @@
 (ise:save-model "quad")
 
 ; End journaling
-(journal:save "devise.jrl")
+; (journal:save "devise.jrl")
