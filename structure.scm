@@ -320,7 +320,7 @@
     (position 0 -0.05 0)
     (position -0.7 0.25 0.3 )
     "Aluminium"
-    "quad1"))
+    "quad1")
 
 ; Merging
   ; Subtract all existing regions from new region.
