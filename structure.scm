@@ -314,6 +314,14 @@
   (define mirror (transform:reflection (position 0 0 0) (gvector -1 0 0)))
   (isegeo:mirror-selected (part:entities (filter:type "solid?")) mirror #t)
 
+; Adding quadrupole
+  (isegeo:set-default-boolean "BAB") ; subtract existing regions from new region.
+  (isegeo:create-cuboid
+    (position 0 -0.05 0)
+    (position -0.7 0.25 0.3 )
+    "Aluminium"
+    "quad1"))
+
 ; Merging
   ; Subtract all existing regions from new region.
   (isegeo:set-default-boolean "BAB")
