@@ -317,8 +317,8 @@
 ; Adding quadrupole
   (isegeo:set-default-boolean "BAB") ; subtract existing regions from new region.
   (isegeo:create-cuboid
-    (position 0 -0.05 0)
-    (position -0.7 0.25 0.3 )
+    (position 0 -0.32 0)
+    (position -0.7 -0.25 0.03 )
     "Aluminium"
     "quad1")
 
