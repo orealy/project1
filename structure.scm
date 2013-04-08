@@ -340,8 +340,8 @@
       (car(find-body-id (position (- (/ dotLength 2) 0.0001) centrePositionY topGateHeight)))))
 
 ; Mirror again to create sensor
-  (define mirror (transform:reflection (position 0 0 0) (gvector 0 -1 0)))
-  (isegeo:mirror-selected (part:entities (filter:type "solid?")) mirror #t)
+  ; (define mirror (transform:reflection (position 0 0 0) (gvector 0 -1 0)))
+  ; (isegeo:mirror-selected (part:entities (filter:type "solid?")) mirror #t)
 
 ; Define more parameters
   (define domainWidth 2)
@@ -379,15 +379,15 @@
   (define drainContact1X2 (- sourceContact1X2))
   (define drainContact1Y2 sourceContact1Y2)
 
-  (define sourceContact2X1 sourceContact1X1)
-  (define sourceContact2Y1 (- sourceContact1Y1))
-  (define sourceContact2X2 sourceContact1X2)
-  (define sourceContact2Y2 (- sourceContact1Y2))
+  ; (define sourceContact2X1 sourceContact1X1)
+  ; (define sourceContact2Y1 (- sourceContact1Y1))
+  ; (define sourceContact2X2 sourceContact1X2)
+  ; (define sourceContact2Y2 (- sourceContact1Y2))
 
-  (define drainContact2X1 drainContact1X1)
-  (define drainContact2Y1 (- drainContact1Y1))
-  (define drainContact2X2 drainContact1X2)
-  (define drainContact2Y2 (- drainContact1Y2))
+  ; (define drainContact2X1 drainContact1X1)
+  ; (define drainContact2Y1 (- drainContact1Y1))
+  ; (define drainContact2X2 drainContact1X2)
+  ; (define drainContact2Y2 (- drainContact1Y2))
 
 ; Create Substrate
   (isegeo:set-default-boolean "ABA")
@@ -430,26 +430,26 @@
     (entity:faces (car(find-body-id (position 0.5 centrePositionY (/ barrierHeight 2)))))
     "leadGateRight1")
 
-  (isegeo:define-contact-set "topGate2" 4.000000  (color:rgb 1.000000 0.000000 0.000000 ) "//" )
-  (isegeo:define-contact-set "barrierLeft2" 4.000000  (color:rgb 1.000000 0.000000 1.000000 ) "##" )
-  (isegeo:define-contact-set "barrierRight2" 4.000000  (color:rgb 1.000000 0.000000 1.000000 ) "##" )
-  (isegeo:define-contact-set "leadGateLeft2" 4.000000  (color:rgb 1.000000 1.000000 0.000000 ) "||" )
-  (isegeo:define-contact-set "leadGateRight2" 4.000000  (color:rgb 1.000000 1.000000 0.000000 ) "||" )
-  (isegeo:define-3d-contact
-    (entity:faces (car(find-body-id (position (/ (+ barrierWidth dotLength) -2) (- centrePositionY) (/ barrierHeight 2)))))
-    "barrierLeft2")
-  (isegeo:define-3d-contact
-    (entity:faces (car(find-body-id (position (/ (+ barrierWidth dotLength) 2) (- centrePositionY) (/ barrierHeight 2)))))
-    "barrierRight2")
-  (isegeo:define-3d-contact
-    (entity:faces (car(find-body-id (position 0 (- centrePositionY) (/ barrierHeight 2)))))
-    "topGate2")
-  (isegeo:define-3d-contact
-    (entity:faces (car(find-body-id (position -0.5 (- centrePositionY) (/ barrierHeight 2)))))
-    "leadGateLeft2")
-  (isegeo:define-3d-contact
-    (entity:faces (car(find-body-id (position 0.5 (- centrePositionY) (/ barrierHeight 2)))))
-    "leadGateRight2")
+  ; (isegeo:define-contact-set "topGate2" 4.000000  (color:rgb 1.000000 0.000000 0.000000 ) "//" )
+  ; (isegeo:define-contact-set "barrierLeft2" 4.000000  (color:rgb 1.000000 0.000000 1.000000 ) "##" )
+  ; (isegeo:define-contact-set "barrierRight2" 4.000000  (color:rgb 1.000000 0.000000 1.000000 ) "##" )
+  ; (isegeo:define-contact-set "leadGateLeft2" 4.000000  (color:rgb 1.000000 1.000000 0.000000 ) "||" )
+  ; (isegeo:define-contact-set "leadGateRight2" 4.000000  (color:rgb 1.000000 1.000000 0.000000 ) "||" )
+  ; (isegeo:define-3d-contact
+  ;   (entity:faces (car(find-body-id (position (/ (+ barrierWidth dotLength) -2) (- centrePositionY) (/ barrierHeight 2)))))
+  ;   "barrierLeft2")
+  ; (isegeo:define-3d-contact
+  ;   (entity:faces (car(find-body-id (position (/ (+ barrierWidth dotLength) 2) (- centrePositionY) (/ barrierHeight 2)))))
+  ;   "barrierRight2")
+  ; (isegeo:define-3d-contact
+  ;   (entity:faces (car(find-body-id (position 0 (- centrePositionY) (/ barrierHeight 2)))))
+  ;   "topGate2")
+  ; (isegeo:define-3d-contact
+  ;   (entity:faces (car(find-body-id (position -0.5 (- centrePositionY) (/ barrierHeight 2)))))
+  ;   "leadGateLeft2")
+  ; (isegeo:define-3d-contact
+  ;   (entity:faces (car(find-body-id (position 0.5 (- centrePositionY) (/ barrierHeight 2)))))
+  ;   "leadGateRight2")
 
 ; Define Source Drain
   (isegeo:imprint-rectangular-wire
@@ -497,6 +497,7 @@
       sourceContact1X2
       sourceContact1Y2
       (- -0.01 siliconOxideThickness)))
+
   (isedr:define-refinement-window
     "drainRegion1"
     "Cuboid"
@@ -526,45 +527,45 @@
         (- siliconOxideThickness))))
   (isegeo:define-3d-contact sourceID "source2")
 
-  (isegeo:imprint-rectangular-wire
-    (position
-      drainContact2X1
-      drainContact2Y1
-      (- siliconOxideThickness))
-    (position
-      drainContact2X2
-      drainContact2Y2
-      (- siliconOxideThickness)))
-  (define drainID
-    (find-face-id
-      (position
-        (- drainContact2X1 0.0001)
-        (- drainContact2Y1 0.0001)
-        (- siliconOxideThickness))))
-  (isegeo:define-3d-contact drainID "drain2")
+  ; (isegeo:imprint-rectangular-wire
+  ;   (position
+  ;     drainContact2X1
+  ;     drainContact2Y1
+  ;     (- siliconOxideThickness))
+  ;   (position
+  ;     drainContact2X2
+  ;     drainContact2Y2
+  ;     (- siliconOxideThickness)))
+  ; (define drainID
+  ;   (find-face-id
+  ;     (position
+  ;       (- drainContact2X1 0.0001)
+  ;       (- drainContact2Y1 0.0001)
+  ;       (- siliconOxideThickness))))
+  ; (isegeo:define-3d-contact drainID "drain2")
 
-  (isedr:define-refinement-window
-    "sourceRegion2"
-    "Cuboid"
-    (position
-      sourceContact2X1
-      sourceContact2Y1
-      (- siliconOxideThickness))
-    (position
-      sourceContact2X2
-      sourceContact2Y2
-      (- -0.01 siliconOxideThickness)))
-  (isedr:define-refinement-window
-    "drainRegion2"
-    "Cuboid"
-    (position
-      drainContact2X1
-      drainContact2Y1
-      (- siliconOxideThickness))
-    (position
-      drainContact2X2
-      drainContact2Y2
-      (- -0.01 siliconOxideThickness)))
+  ; (isedr:define-refinement-window
+  ;   "sourceRegion2"
+  ;   "Cuboid"
+  ;   (position
+  ;     sourceContact2X1
+  ;     sourceContact2Y1
+  ;     (- siliconOxideThickness))
+  ;   (position
+  ;     sourceContact2X2
+  ;     sourceContact2Y2
+  ;     (- -0.01 siliconOxideThickness)))
+  ; (isedr:define-refinement-window
+  ;   "drainRegion2"
+  ;   "Cuboid"
+  ;   (position
+  ;     drainContact2X1
+  ;     drainContact2Y1
+  ;     (- siliconOxideThickness))
+  ;   (position
+  ;     drainContact2X2
+  ;     drainContact2Y2
+  ;     (- -0.01 siliconOxideThickness)))
 
   (isedr:define-constant-profile "ohmic" "PhosphorusActiveConcentration" 1e16)
   (isedr:define-constant-profile-placement "sourceDoping" "ohmic" "sourceRegion1")
